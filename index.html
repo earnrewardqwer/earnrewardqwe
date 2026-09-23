@@ -3,418 +3,653 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Important Message 😈</title>
+
+<title>Secret Message 😈</title>
 
 <style>
+
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
+    margin: 0;
     min-height: 100vh;
-    background: linear-gradient(135deg, #12001c, #42006b, #080014);
-    color: white;
     font-family: Arial, sans-serif;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+
+    color: white;
+
+    background:
+        radial-gradient(circle at top, #5b008a, transparent 45%),
+        linear-gradient(135deg, #090014, #21002e);
 }
 
-.container {
-    width: min(92%, 600px);
+.card {
+
+    width: min(92%, 560px);
+
+    padding: 35px 25px;
+
     text-align: center;
-    padding: 30px 22px;
-    background: rgba(255,255,255,.09);
-    border: 1px solid rgba(255,255,255,.2);
+
+    background: rgba(255,255,255,0.09);
+
+    border: 1px solid rgba(255,255,255,0.2);
+
     border-radius: 25px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.6);
+
     backdrop-filter: blur(15px);
-    box-shadow: 0 20px 60px rgba(0,0,0,.5);
 }
 
 .emoji {
-    font-size: 65px;
+
+    font-size: 70px;
+
+    margin-bottom: 10px;
 }
 
 h1 {
-    margin: 15px 0;
-    font-size: clamp(28px, 7vw, 45px);
+
+    font-size: clamp(30px, 7vw, 48px);
+
+    margin: 10px 0 20px;
 }
 
 p {
-    font-size: 18px;
-    line-height: 1.6;
+
     color: #ddd;
-    margin: 20px 0;
+
+    font-size: 18px;
+
+    line-height: 1.6;
 }
 
 .question {
-    font-size: 23px;
+
+    font-size: 24px;
+
     font-weight: bold;
-    margin: 25px 0;
+
+    margin: 30px 0;
 }
 
 button {
-    border: 0;
-    padding: 14px 28px;
+
+    border: none;
+
+    padding: 15px 28px;
+
     margin: 8px;
+
     border-radius: 50px;
+
     font-size: 17px;
+
     font-weight: bold;
+
     cursor: pointer;
+
+    transition: transform .2s;
 }
 
-.yes {
+button:hover {
+
+    transform: scale(1.07);
+}
+
+.primary {
+
     background: #00e676;
-    color: #001b0b;
+
+    color: #00250e;
 }
 
-.no {
+.secondary {
+
     background: #ff4081;
+
     color: white;
 }
 
-.pay {
+.payment {
+
     background: #ffd600;
-    color: #221900;
+
+    color: #211900;
 }
 
 .hidden {
+
     display: none;
 }
 
-.qr {
-    width: 230px;
-    max-width: 80%;
-    background: white;
-    padding: 10px;
-    border-radius: 12px;
-    margin: 15px auto;
+.progress {
+
+    width: 100%;
+
+    height: 8px;
+
+    background: rgba(255,255,255,.15);
+
+    border-radius: 10px;
+
+    margin-top: 25px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+
+    height: 100%;
+
+    width: 0%;
+
+    background: #00e5ff;
+
+    transition: width .4s;
 }
 
 .small {
+
     font-size: 13px;
-    opacity: .7;
-    margin-top: 15px;
+
+    opacity: .65;
+
+    margin-top: 20px;
 }
 
-#status {
-    margin-top: 15px;
-    color: #00e676;
-    font-weight: bold;
+.money {
+
+    font-size: 65px;
+
+    margin-bottom: 10px;
 }
+
+.success {
+
+    font-size: 75px;
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
 
-    <!-- START -->
-    <div id="start">
+<div class="card">
 
-        <div class="emoji">📩</div>
 
-        <h1>Important Message</h1>
+    <!-- START SCREEN -->
+
+    <section id="start">
+
+        <div class="emoji">
+            📩
+        </div>
+
+        <h1>
+            Secret Message
+        </h1>
 
         <p>
-            Answer a few questions to reveal the secret message. 👀
+            Someone has sent you a very important message.
+            <br><br>
+            Answer a few questions to unlock it. 👀
         </p>
 
-        <button class="yes" onclick="startQuiz()">
-            Start 😳
+        <button
+            class="primary"
+            onclick="startQuiz()">
+
+            Open Message 😳
+
         </button>
 
-    </div>
+    </section>
 
 
-    <!-- QUESTIONS -->
-    <div id="quiz" class="hidden">
 
-        <div class="emoji" id="emoji">🤔</div>
+    <!-- QUIZ SCREEN -->
 
-        <h1 id="title">Question</h1>
+    <section
+        id="quiz"
+        class="hidden">
 
-        <div class="question" id="question"></div>
+        <div
+            class="emoji"
+            id="questionEmoji">
 
-        <button class="yes" onclick="answer(true)">
+            🤔
+
+        </div>
+
+        <h1 id="questionTitle">
+            Question
+        </h1>
+
+        <div
+            class="question"
+            id="questionText">
+
+        </div>
+
+
+        <button
+            class="primary"
+            onclick="answerYes()">
+
             YES 😎
+
         </button>
 
-        <button class="no" onclick="answer(false)">
+
+        <button
+            class="secondary"
+            onclick="answerNo()">
+
             NO 😂
+
         </button>
+
+
+        <div class="progress">
+
+            <div
+                class="progress-bar"
+                id="progressBar">
+
+            </div>
+
+        </div>
+
+
+        <div class="small">
+
+            Question
+            <span id="questionNumber">1</span>
+            of 5
+
+        </div>
+
+    </section>
+
+
+
+    <!-- PAYMENT SCREEN -->
+
+    <section
+        id="payment"
+        class="hidden">
+
+        <div class="money">
+            💰
+        </div>
+
+        <h1>
+            One Last Step 😈
+        </h1>
+
+        <p>
+
+            You answered all the questions!
+
+            <br><br>
+
+            Your secret message is ready.
+
+            <br><br>
+
+            <strong>
+                Unlock it for ₹1
+            </strong>
+
+        </p>
+
+
+        <!-- PAYMENT GATEWAY WILL BE ADDED HERE LATER -->
+
+        <button
+            class="payment"
+            onclick="paymentComingSoon()">
+
+            Pay ₹1 💳
+
+        </button>
+
 
         <p class="small">
-            Question <span id="number">1</span> / 5
+
+            Secure payment gateway will be connected here.
+
         </p>
 
-    </div>
+    </section>
 
 
-    <!-- PAYMENT -->
-    <div id="payment" class="hidden">
 
-        <div class="emoji">💰</div>
+    <!-- FINAL SCREEN -->
 
-        <h1>Friendship Tax 😈</h1>
+    <section
+        id="final"
+        class="hidden">
+
+        <div class="success">
+            😂
+        </div>
+
+        <h1>
+            YOU GOT PRANKED!
+        </h1>
 
         <p>
-            You completed all the questions!
+
+            Congratulations! 🎉
+
             <br><br>
-            <strong>Pay ₹1 to unlock the final message.</strong>
+
+            You answered all the questions...
+
+            <br>
+
+            and paid the Friendship Tax! 🤣
+
         </p>
 
-        <!-- QR CODE -->
-        <img id="qr"
-             class="qr"
-             alt="UPI QR Code">
 
-        <p>
-            Scan this QR code using your UPI app.
-        </p>
+        <button
+            class="primary"
+            onclick="location.reload()">
 
-        <button class="pay" onclick="openUPI()">
-            Pay ₹1 with UPI 📱
+            Play Again 🔄
+
         </button>
 
-        <br>
+    </section>
 
-        <button class="yes" onclick="paid()">
-            I've Paid ₹1 ✅
-        </button>
-
-        <div id="status"></div>
-
-        <p class="small">
-            Payment is voluntary. This page does not collect your UPI PIN,
-            password, or banking credentials.
-        </p>
-
-    </div>
-
-
-    <!-- FINAL -->
-    <div id="final" class="hidden">
-
-        <div class="emoji">🤣</div>
-
-        <h1>YOU GOT PRANKED!</h1>
-
-        <p>
-            Thank you for paying the
-            <strong>₹1 Friendship Tax!</strong> 😂
-            <br><br>
-            Just kidding! 🎉
-        </p>
-
-        <p>
-            Your payment is not automatically verified by this website.
-        </p>
-
-    </div>
 
 </div>
 
 
+
 <script>
 
-/* =========================================
-   CHANGE THIS TO YOUR OWN UPI ID
-   Example: yourname@oksbi
-========================================= */
 
-const UPI_ID = "YOUR-UPI-ID@bank";
+/* =========================
+   QUESTIONS
+========================= */
 
-const PAYEE_NAME = "Friendship Tax";
-
-const AMOUNT = "1";
-
-
-/* QUESTIONS */
 
 const questions = [
 
     {
         emoji: "🤔",
+
         title: "Question 1",
+
         text: "Are you my friend?"
     },
 
+
     {
         emoji: "😏",
+
         title: "Question 2",
+
         text: "Do you trust me?"
     },
 
+
     {
         emoji: "👀",
+
         title: "Question 3",
+
         text: "Are you sure you want to continue?"
     },
 
+
     {
         emoji: "😂",
+
         title: "Question 4",
-        text: "Do you think I'm going to reveal something important?"
+
+        text: "Do you think this is really important?"
     },
+
 
     {
         emoji: "😈",
+
         title: "FINAL QUESTION",
-        text: "Are you ready for the truth?"
+
+        text: "Are you ready to see the secret?"
     }
 
 ];
 
-let current = 0;
+
+let currentQuestion = 0;
 
 
-/* START */
+
+/* =========================
+   START QUIZ
+========================= */
+
 
 function startQuiz() {
 
-    document.getElementById("start")
-        .classList.add("hidden");
+    document
+        .getElementById("start")
+        .classList
+        .add("hidden");
 
-    document.getElementById("quiz")
-        .classList.remove("hidden");
+
+    document
+        .getElementById("quiz")
+        .classList
+        .remove("hidden");
+
 
     showQuestion();
+
 }
 
 
-/* SHOW QUESTION */
+
+/* =========================
+   SHOW QUESTION
+========================= */
+
 
 function showQuestion() {
 
-    const q = questions[current];
+    const question =
+        questions[currentQuestion];
 
-    document.getElementById("emoji").textContent =
-        q.emoji;
 
-    document.getElementById("title").textContent =
-        q.title;
+    document
+        .getElementById("questionEmoji")
+        .textContent =
+        question.emoji;
 
-    document.getElementById("question").textContent =
-        q.text;
 
-    document.getElementById("number").textContent =
-        current + 1;
+    document
+        .getElementById("questionTitle")
+        .textContent =
+        question.title;
+
+
+    document
+        .getElementById("questionText")
+        .textContent =
+        question.text;
+
+
+    document
+        .getElementById("questionNumber")
+        .textContent =
+        currentQuestion + 1;
+
+
+    const progress =
+        (currentQuestion /
+        questions.length) * 100;
+
+
+    document
+        .getElementById("progressBar")
+        .style.width =
+        progress + "%";
+
 }
 
 
-/* ANSWER */
 
-function answer(choice) {
+/* =========================
+   YES BUTTON
+========================= */
 
-    if (!choice) {
 
-        alert("Nice try! 😂 Try the other button.");
+function answerYes() {
 
-        return;
-    }
+    currentQuestion++;
 
-    current++;
 
-    if (current >= questions.length) {
+    if (
+        currentQuestion >=
+        questions.length
+    ) {
 
         showPayment();
 
-    } else {
-
-        showQuestion();
-
-    }
-}
-
-
-/* PAYMENT PAGE */
-
-function showPayment() {
-
-    document.getElementById("quiz")
-        .classList.add("hidden");
-
-    document.getElementById("payment")
-        .classList.remove("hidden");
-
-
-    /*
-       Create UPI payment URL.
-    */
-
-    const upiURL =
-        "upi://pay" +
-        "?pa=" + encodeURIComponent(UPI_ID) +
-        "&pn=" + encodeURIComponent(PAYEE_NAME) +
-        "&am=" + AMOUNT +
-        "&cu=INR" +
-        "&tn=" + encodeURIComponent("Friendship Tax");
-
-
-    /*
-       Generate QR code using a public QR image service.
-       The QR contains only the UPI payment information.
-    */
-
-    const qrURL =
-        "https://api.qrserver.com/v1/create-qr-code/" +
-        "?size=300x300&data=" +
-        encodeURIComponent(upiURL);
-
-
-    document.getElementById("qr").src = qrURL;
-
-
-    /*
-       Save UPI link for the Pay button.
-    */
-
-    window.upiPaymentURL = upiURL;
-}
-
-
-/* OPEN UPI APP */
-
-function openUPI() {
-
-    window.location.href = window.upiPaymentURL;
-
-}
-
-
-/* USER CONFIRMS PAYMENT */
-
-function paid() {
-
-    const confirmed =
-        confirm("Have you actually completed the ₹1 payment?");
-
-    if (!confirmed) {
-
         return;
 
     }
 
-    document.getElementById("status").textContent =
-        "Payment marked as completed. Opening final message...";
 
-    setTimeout(function() {
-
-        document.getElementById("payment")
-            .classList.add("hidden");
-
-        document.getElementById("final")
-            .classList.remove("hidden");
-
-    }, 1200);
+    showQuestion();
 
 }
 
+
+
+/* =========================
+   NO BUTTON
+========================= */
+
+
+function answerNo() {
+
+    const messages = [
+
+        "Nice try 😂",
+
+        "Wrong button! 😈",
+
+        "You have to answer this one!",
+
+        "Almost escaped! 😂"
+
+    ];
+
+
+    const randomMessage =
+        messages[
+            Math.floor(
+                Math.random() *
+                messages.length
+            )
+        ];
+
+
+    alert(randomMessage);
+
+}
+
+
+
+/* =========================
+   PAYMENT SCREEN
+========================= */
+
+
+function showPayment() {
+
+    document
+        .getElementById("quiz")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("payment")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("progressBar")
+        .style.width =
+        "100%";
+
+}
+
+
+
+/* =========================
+   TEMPORARY PAYMENT BUTTON
+========================= */
+
+
+function paymentComingSoon() {
+
+    alert(
+        "Payment gateway will be connected here. 💳"
+    );
+
+}
+
+
+/* =========================
+   TEMPORARY FINAL SCREEN
+=========================
+
+   We will replace this with
+   real payment verification
+   later.
+
+========================= */
+
+
+function showFinal() {
+
+    document
+        .getElementById("payment")
+        .classList
+        .add("hidden");
+
+
+    document
+        .getElementById("final")
+        .classList
+        .remove("hidden");
+
+}
+
+
 </script>
 
+
 </body>
+
 </html>
