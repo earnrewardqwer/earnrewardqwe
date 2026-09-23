@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Important Message 😳</title>
+<title>Important Message 😈</title>
 
 <style>
 * {
@@ -14,7 +14,7 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(135deg, #14001f, #35005c, #090018);
+    background: linear-gradient(135deg, #12001c, #42006b, #080014);
     color: white;
     font-family: Arial, sans-serif;
     display: flex;
@@ -26,44 +26,38 @@ body {
 .container {
     width: min(92%, 600px);
     text-align: center;
-    padding: 35px 25px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2);
+    padding: 30px 22px;
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.2);
     border-radius: 25px;
     backdrop-filter: blur(15px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
 }
 
 .emoji {
-    font-size: 70px;
-    animation: bounce 1s infinite alternate;
-}
-
-@keyframes bounce {
-    from { transform: translateY(0); }
-    to { transform: translateY(-12px); }
+    font-size: 65px;
 }
 
 h1 {
     margin: 15px 0;
-    font-size: clamp(28px, 6vw, 48px);
+    font-size: clamp(28px, 7vw, 45px);
 }
 
 p {
-    font-size: 19px;
+    font-size: 18px;
     line-height: 1.6;
     color: #ddd;
-    margin-bottom: 25px;
+    margin: 20px 0;
 }
 
 .question {
-    font-size: 24px;
+    font-size: 23px;
     font-weight: bold;
     margin: 25px 0;
 }
 
 button {
-    border: none;
+    border: 0;
     padding: 14px 28px;
     margin: 8px;
     border-radius: 50px;
@@ -82,52 +76,34 @@ button {
     color: white;
 }
 
-button:hover {
-    transform: scale(1.08);
+.pay {
+    background: #ffd600;
+    color: #221900;
 }
 
 .hidden {
     display: none;
 }
 
-.progress {
-    width: 100%;
-    height: 8px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 20px;
-    overflow: hidden;
-    margin-top: 25px;
-}
-
-.bar {
-    height: 100%;
-    width: 0%;
-    background: #00e5ff;
-    transition: width 0.5s;
-}
-
-.big {
-    font-size: clamp(45px, 12vw, 90px);
-}
-
-.confetti {
-    position: fixed;
-    top: -20px;
-    font-size: 25px;
-    animation: fall linear forwards;
-    pointer-events: none;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(720deg);
-    }
+.qr {
+    width: 230px;
+    max-width: 80%;
+    background: white;
+    padding: 10px;
+    border-radius: 12px;
+    margin: 15px auto;
 }
 
 .small {
-    font-size: 14px;
-    opacity: 0.65;
-    margin-top: 20px;
+    font-size: 13px;
+    opacity: .7;
+    margin-top: 15px;
+}
+
+#status {
+    margin-top: 15px;
+    color: #00e676;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -136,220 +112,305 @@ button:hover {
 
 <div class="container">
 
-<div id="start">
+    <!-- START -->
+    <div id="start">
 
-<div class="emoji">📩</div>
+        <div class="emoji">📩</div>
 
-<h1>Important Message</h1>
+        <h1>Important Message</h1>
 
-<p>
-Hey! You have received a very important message.
-<br>
-Please answer a few questions to continue. 👀
-</p>
+        <p>
+            Answer a few questions to reveal the secret message. 👀
+        </p>
 
-<button class="yes" onclick="startPrank()">
-Open Message 😳
-</button>
+        <button class="yes" onclick="startQuiz()">
+            Start 😳
+        </button>
 
-<div class="small">
-Don't worry... probably nothing serious 😂
-</div>
-
-</div>
+    </div>
 
 
-<div id="quiz" class="hidden">
+    <!-- QUESTIONS -->
+    <div id="quiz" class="hidden">
 
-<div class="emoji" id="emoji">🤔</div>
+        <div class="emoji" id="emoji">🤔</div>
 
-<h1 id="title">Wait...</h1>
+        <h1 id="title">Question</h1>
 
-<div class="question" id="question"></div>
+        <div class="question" id="question"></div>
 
-<button class="yes" onclick="answer(true)">
-YES 😎
-</button>
+        <button class="yes" onclick="answer(true)">
+            YES 😎
+        </button>
 
-<button class="no" onclick="answer(false)">
-NO 😂
-</button>
+        <button class="no" onclick="answer(false)">
+            NO 😂
+        </button>
 
-<div class="progress">
-<div class="bar" id="bar"></div>
-</div>
+        <p class="small">
+            Question <span id="number">1</span> / 5
+        </p>
 
-<div class="small">
-Question <span id="number">1</span> of 5
-</div>
-
-</div>
+    </div>
 
 
-<div id="final" class="hidden">
+    <!-- PAYMENT -->
+    <div id="payment" class="hidden">
 
-<div class="big">😂</div>
+        <div class="emoji">💰</div>
 
-<h1>YOU GOT PRANKED!</h1>
+        <h1>Friendship Tax 😈</h1>
 
-<p>
-Congratulations! 🎉
-<br><br>
-You seriously answered all those questions...
-<br>
-just to discover this. 🤣
-</p>
+        <p>
+            You completed all the questions!
+            <br><br>
+            <strong>Pay ₹1 to unlock the final message.</strong>
+        </p>
 
-<button class="yes" onclick="restart()">
-Prank Again 🔄
-</button>
+        <!-- QR CODE -->
+        <img id="qr"
+             class="qr"
+             alt="UPI QR Code">
 
-</div>
+        <p>
+            Scan this QR code using your UPI app.
+        </p>
+
+        <button class="pay" onclick="openUPI()">
+            Pay ₹1 with UPI 📱
+        </button>
+
+        <br>
+
+        <button class="yes" onclick="paid()">
+            I've Paid ₹1 ✅
+        </button>
+
+        <div id="status"></div>
+
+        <p class="small">
+            Payment is voluntary. This page does not collect your UPI PIN,
+            password, or banking credentials.
+        </p>
+
+    </div>
+
+
+    <!-- FINAL -->
+    <div id="final" class="hidden">
+
+        <div class="emoji">🤣</div>
+
+        <h1>YOU GOT PRANKED!</h1>
+
+        <p>
+            Thank you for paying the
+            <strong>₹1 Friendship Tax!</strong> 😂
+            <br><br>
+            Just kidding! 🎉
+        </p>
+
+        <p>
+            Your payment is not automatically verified by this website.
+        </p>
+
+    </div>
 
 </div>
 
 
 <script>
 
+/* =========================================
+   CHANGE THIS TO YOUR OWN UPI ID
+   Example: yourname@oksbi
+========================================= */
+
+const UPI_ID = "YOUR-UPI-ID@bank";
+
+const PAYEE_NAME = "Friendship Tax";
+
+const AMOUNT = "1";
+
+
+/* QUESTIONS */
+
 const questions = [
-{
-emoji: "🤔",
-title: "First Question",
-text: "Are you my friend?"
-},
-{
-emoji: "😏",
-title: "Interesting...",
-text: "Do you trust me?"
-},
-{
-emoji: "👀",
-title: "Think carefully...",
-text: "Are you sure you want to continue?"
-},
-{
-emoji: "😂",
-title: "Almost there...",
-text: "Do you think I'm actually going to reveal something important?"
-},
-{
-emoji: "😈",
-title: "FINAL QUESTION",
-text: "Are you ready for the truth?"
-}
+
+    {
+        emoji: "🤔",
+        title: "Question 1",
+        text: "Are you my friend?"
+    },
+
+    {
+        emoji: "😏",
+        title: "Question 2",
+        text: "Do you trust me?"
+    },
+
+    {
+        emoji: "👀",
+        title: "Question 3",
+        text: "Are you sure you want to continue?"
+    },
+
+    {
+        emoji: "😂",
+        title: "Question 4",
+        text: "Do you think I'm going to reveal something important?"
+    },
+
+    {
+        emoji: "😈",
+        title: "FINAL QUESTION",
+        text: "Are you ready for the truth?"
+    }
+
 ];
 
 let current = 0;
 
-function startPrank() {
 
-document.getElementById("start").classList.add("hidden");
+/* START */
 
-document.getElementById("quiz").classList.remove("hidden");
+function startQuiz() {
 
-showQuestion();
+    document.getElementById("start")
+        .classList.add("hidden");
 
+    document.getElementById("quiz")
+        .classList.remove("hidden");
+
+    showQuestion();
 }
+
+
+/* SHOW QUESTION */
 
 function showQuestion() {
 
-const q = questions[current];
+    const q = questions[current];
 
-document.getElementById("emoji").textContent = q.emoji;
+    document.getElementById("emoji").textContent =
+        q.emoji;
 
-document.getElementById("title").textContent = q.title;
+    document.getElementById("title").textContent =
+        q.title;
 
-document.getElementById("question").textContent = q.text;
+    document.getElementById("question").textContent =
+        q.text;
 
-document.getElementById("number").textContent = current + 1;
-
-const progress = (current / questions.length) * 100;
-
-document.getElementById("bar").style.width = progress + "%";
-
+    document.getElementById("number").textContent =
+        current + 1;
 }
+
+
+/* ANSWER */
 
 function answer(choice) {
 
-if (!choice) {
+    if (!choice) {
 
-const messages = [
-"Nice try 😂",
-"You can't escape the question! 😭",
-"Wrong button! Try again 😈",
-"I knew you'd press that 😂"
-];
+        alert("Nice try! 😂 Try the other button.");
 
-alert(messages[Math.floor(Math.random() * messages.length)]);
+        return;
+    }
 
-return;
+    current++;
+
+    if (current >= questions.length) {
+
+        showPayment();
+
+    } else {
+
+        showQuestion();
+
+    }
+}
+
+
+/* PAYMENT PAGE */
+
+function showPayment() {
+
+    document.getElementById("quiz")
+        .classList.add("hidden");
+
+    document.getElementById("payment")
+        .classList.remove("hidden");
+
+
+    /*
+       Create UPI payment URL.
+    */
+
+    const upiURL =
+        "upi://pay" +
+        "?pa=" + encodeURIComponent(UPI_ID) +
+        "&pn=" + encodeURIComponent(PAYEE_NAME) +
+        "&am=" + AMOUNT +
+        "&cu=INR" +
+        "&tn=" + encodeURIComponent("Friendship Tax");
+
+
+    /*
+       Generate QR code using a public QR image service.
+       The QR contains only the UPI payment information.
+    */
+
+    const qrURL =
+        "https://api.qrserver.com/v1/create-qr-code/" +
+        "?size=300x300&data=" +
+        encodeURIComponent(upiURL);
+
+
+    document.getElementById("qr").src = qrURL;
+
+
+    /*
+       Save UPI link for the Pay button.
+    */
+
+    window.upiPaymentURL = upiURL;
+}
+
+
+/* OPEN UPI APP */
+
+function openUPI() {
+
+    window.location.href = window.upiPaymentURL;
 
 }
 
-current++;
 
-if (current >= questions.length) {
+/* USER CONFIRMS PAYMENT */
 
-finishPrank();
+function paid() {
 
-} else {
+    const confirmed =
+        confirm("Have you actually completed the ₹1 payment?");
 
-showQuestion();
+    if (!confirmed) {
 
-}
+        return;
 
-}
+    }
 
-function finishPrank() {
+    document.getElementById("status").textContent =
+        "Payment marked as completed. Opening final message...";
 
-document.getElementById("quiz").classList.add("hidden");
+    setTimeout(function() {
 
-document.getElementById("final").classList.remove("hidden");
+        document.getElementById("payment")
+            .classList.add("hidden");
 
-createConfetti();
+        document.getElementById("final")
+            .classList.remove("hidden");
 
-}
-
-function createConfetti() {
-
-const emojis = ["🎉", "😂", "🤣", "🎊", "✨", "😈", "🥳"];
-
-for (let i = 0; i < 70; i++) {
-
-const item = document.createElement("div");
-
-item.className = "confetti";
-
-item.textContent =
-emojis[Math.floor(Math.random() * emojis.length)];
-
-item.style.left = Math.random() * 100 + "vw";
-
-item.style.animationDuration =
-(2 + Math.random() * 4) + "s";
-
-item.style.animationDelay =
-Math.random() * 2 + "s";
-
-document.body.appendChild(item);
-
-setTimeout(() => {
-item.remove();
-}, 7000);
-
-}
-
-}
-
-function restart() {
-
-current = 0;
-
-document.getElementById("final").classList.add("hidden");
-
-document.getElementById("quiz").classList.remove("hidden");
-
-showQuestion();
+    }, 1200);
 
 }
 
