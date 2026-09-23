@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Important Message 😳</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #14001f, #35005c, #090018);
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container {
+    width: min(92%, 600px);
+    text-align: center;
+    padding: 35px 25px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 25px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.emoji {
+    font-size: 70px;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-12px); }
+}
+
+h1 {
+    margin: 15px 0;
+    font-size: clamp(28px, 6vw, 48px);
+}
+
+p {
+    font-size: 19px;
+    line-height: 1.6;
+    color: #ddd;
+    margin-bottom: 25px;
+}
+
+.question {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+button {
+    border: none;
+    padding: 14px 28px;
+    margin: 8px;
+    border-radius: 50px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.yes {
+    background: #00e676;
+    color: #001b0b;
+}
+
+.no {
+    background: #ff4081;
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+.hidden {
+    display: none;
+}
+
+.progress {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.bar {
+    height: 100%;
+    width: 0%;
+    background: #00e5ff;
+    transition: width 0.5s;
+}
+
+.big {
+    font-size: clamp(45px, 12vw, 90px);
+}
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    font-size: 25px;
+    animation: fall linear forwards;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+    }
+}
+
+.small {
+    font-size: 14px;
+    opacity: 0.65;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="start">
+
+<div class="emoji">📩</div>
+
+<h1>Important Message</h1>
+
+<p>
+Hey! You have received a very important message.
+<br>
+Please answer a few questions to continue. 👀
+</p>
+
+<button class="yes" onclick="startPrank()">
+Open Message 😳
+</button>
+
+<div class="small">
+Don't worry... probably nothing serious 😂
+</div>
+
+</div>
+
+
+<div id="quiz" class="hidden">
+
+<div class="emoji" id="emoji">🤔</div>
+
+<h1 id="title">Wait...</h1>
+
+<div class="question" id="question"></div>
+
+<button class="yes" onclick="answer(true)">
+YES 😎
+</button>
+
+<button class="no" onclick="answer(false)">
+NO 😂
+</button>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<div class="small">
+Question <span id="number">1</span> of 5
+</div>
+
+</div>
+
+
+<div id="final" class="hidden">
+
+<div class="big">😂</div>
+
+<h1>YOU GOT PRANKED!</h1>
+
+<p>
+Congratulations! 🎉
+<br><br>
+You seriously answered all those questions...
+<br>
+just to discover this. 🤣
+</p>
+
+<button class="yes" onclick="restart()">
+Prank Again 🔄
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+const questions = [
+{
+emoji: "🤔",
+title: "First Question",
+text: "Are you my friend?"
+},
+{
+emoji: "😏",
+title: "Interesting...",
+text: "Do you trust me?"
+},
+{
+emoji: "👀",
+title: "Think carefully...",
+text: "Are you sure you want to continue?"
+},
+{
+emoji: "😂",
+title: "Almost there...",
+text: "Do you think I'm actually going to reveal something important?"
+},
+{
+emoji: "😈",
+title: "FINAL QUESTION",
+text: "Are you ready for the truth?"
+}
+];
+
+let current = 0;
+
+function startPrank() {
+
+document.getElementById("start").classList.add("hidden");
+
+document.getElementById("quiz").classList.remove("hidden");
+
+showQuestion();
+
+}
+
+function showQuestion() {
+
+const q = questions[current];
+
+document.getElementById("emoji").textContent = q.emoji;
+
+document.getElementById("title").textContent = q.title;
+
+document.getElementById("question").textContent = q.text;
+
+document.getElementById("number").textContent = current + 1;
+
+const progress = (current / questions.length) * 100;
+
+document.getElementById("bar").style.width = progress + "%";
+
+}
+
+function answer(choice) {
+
+if (!choice) {
+
+const messages = [
+"Nice try 😂",
+"You can't escape the question! 😭",
+"Wrong button! Try again 😈",
+"I knew you'd press that 😂"
+];
+
+alert(messages[Math.floor(Math.random() * messages.length)]);
+
+return;
+
+}
+
+current++;
+
+if (current >= questions.length) {
+
+finishPrank();
+
+} else {
+
+showQuestion();
+
+}
+
+}
+
+function finishPrank() {
+
+document.getElementById("quiz").classList.add("hidden");
+
+document.getElementById("final").classList.remove("hidden");
+
+createConfetti();
+
+}
+
+function createConfetti() {
+
+const emojis = ["🎉", "😂", "🤣", "🎊", "✨", "😈", "🥳"];
+
+for (let i = 0; i < 70; i++) {
+
+const item = document.createElement("div");
+
+item.className = "confetti";
+
+item.textContent =
+emojis[Math.floor(Math.random() * emojis.length)];
+
+item.style.left = Math.random() * 100 + "vw";
+
+item.style.animationDuration =
+(2 + Math.random() * 4) + "s";
+
+item.style.animationDelay =
+Math.random() * 2 + "s";
+
+document.body.appendChild(item);
+
+setTimeout(() => {
+item.remove();
+}, 7000);
+
+}
+
+}
+
+function restart() {
+
+current = 0;
+
+document.getElementById("final").classList.add("hidden");
+
+document.getElementById("quiz").classList.remove("hidden");
+
+showQuestion();
+
+}
+
+</script>
+
+</body>
+</html>
